@@ -2,12 +2,16 @@ import chalk from "chalk";
 import express from "express";
 import morgan from "morgan";
 import things from "./data/things.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const port = 4000;
+const port = process.env.PORT;
+
 const app = express();
+const { log } = console;
 
 const server = app.listen(port, () => {
-  console.log(chalk.yellow(`Server listening on: http://localhost:${port}`));
+  log(chalk.yellow(`Server listening on: http://localhost:${port}`));
 });
 
 app.use(morgan("dev"));
@@ -21,5 +25,5 @@ app.use((req, res) => {
 });
 
 server.on("error", (error) => {
-  console.log(chalk.red("Error on starting server", error.message));
+  log(chalk.red("Error on starting server", error.message));
 });
