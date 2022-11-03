@@ -15,3 +15,11 @@ app.use(express.json());
 app.get("/things", (req, res, next) => {
   res.status(200).json(things);
 });
+
+app.use((req, res) => {
+  res.status(404).json({ error: "Endpoint not found" });
+});
+
+server.on("error", (error) => {
+  console.log(chalk.red("Error on starting server", error.message));
+});
